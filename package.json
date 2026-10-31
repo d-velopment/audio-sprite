@@ -1,0 +1,19 @@
+{
+	"name": "audio-sprite",
+	"version": "1.0.6",
+	"description": "Audio Sprite",
+	"main": "scripts/audio-convert.js",
+	"type": "commonjs",
+	"scripts": {
+		"start": "node scripts/audio-convert.js",
+		"setup:ffmpeg": "node scripts/setup-ffmpeg.js",
+		"format": "prettier --plugin-search-dir . --write ."
+	},
+	"dependencies": {
+		"fs": "^0.0.1-security"
+	},
+	"devDependencies": {
+		"audit-ci": "^6.6.1",
+		"prettier": "^3.0.3"
+	}
+}
