@@ -22,24 +22,27 @@ in applications and games.
 
 ## Installation
 
-Install Node.js and npm, then install project dependencies:
+Install Node.js 24 or later, then install the published CLI:
 
 ```sh
-npm ci
+npm install --global audio-sprite
 ```
+
+For development from a repository checkout, install dependencies with `npm ci`.
 
 On macOS or Windows, install or update FFmpeg and ffprobe:
 
 ```sh
-npm run setup:ffmpeg
+audio-sprite-setup
 ```
 
-Setup runs only when requested; `npm ci` and `npm start` do not install system packages.
+Setup runs only when requested; npm installation never installs system packages.
+From a repository checkout, use `npm run setup:ffmpeg` instead.
 
 ### macOS
 
 ```sh
-npm run setup:ffmpeg
+audio-sprite-setup
 export PATH="$(brew --prefix ffmpeg-full)/bin:$PATH"
 ```
 
@@ -50,7 +53,7 @@ add it to your shell profile to retain the setting in new terminals.
 ### Windows
 
 ```powershell
-npm run setup:ffmpeg
+audio-sprite-setup
 ```
 
 Setup uses [WinGet](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
@@ -73,26 +76,26 @@ package manager or the [FFmpeg downloads page](https://ffmpeg.org/download.html)
 
 ## Usage
 
-Run from the project root with one or more media files:
+Run from the directory containing your inputs, or pass absolute paths:
 
 ```sh
-npm start -- "./input/intro.mp3" "./input/click.flac" "./input/video.mp4"
+audio-sprite "./input/intro.mp3" "./input/click.flac" "./input/video.mp4"
 ```
 
 Select a directory:
 
 ```sh
-npm start -- "./input"
+audio-sprite "./input"
 ```
 
 Or combine files and directories:
 
 ```sh
-npm start -- "./input/intro.mp3" "./effects"
+audio-sprite "./input/intro.mp3" "./effects"
 ```
 
-The `--` after `npm start` forwards arguments to the script. Direct Node.js
-invocation needs no separator.
+From a repository checkout, use `npm start -- <paths> [options]`, or invoke
+Node.js directly:
 
 ```sh
 node scripts/audio-convert.js "./input"
@@ -101,7 +104,7 @@ node scripts/audio-convert.js "./input"
 ### Options
 
 ```sh
-npm start -- "./input" --output "mp3:192k:stereo,ogg:96k:mono" --output-dir "./dist/audio" --output-name "ui-sounds"
+audio-sprite "./input" --output "mp3:192k:stereo,ogg:96k:mono" --output-dir "./dist/audio" --output-name "ui-sounds"
 ```
 
 | Option          | Default           | Behavior                                                      |

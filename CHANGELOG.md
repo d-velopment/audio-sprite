@@ -1,0 +1,35 @@
+# Changelog
+
+Changes are recorded by version, newest first. Keep upcoming changes in
+`Unreleased`, then move them into a versioned entry before creating a release.
+Each entry describes changes since the previous release.
+
+## [Unreleased]
+
+## [1.0.6]
+
+First version documented in this changelog; no earlier release history is recorded.
+
+### Added
+
+- Audio sprite generation from individual files or folders, including audio streams
+  from video files supported by FFmpeg.
+- WAV normalization, silence between clips, and a readable JSON timing map.
+- Configurable output formats, bitrates, mono/stereo channels, output directory,
+  and file name. Supported output formats are MP3, M4A, OGG, and AC3.
+- Explicit FFmpeg setup commands for macOS and Windows.
+- Installable `audio-sprite` and `audio-sprite-setup` CLI commands.
+- Unit, integration, and package installation tests, with coverage reporting.
+- Automated npm publication when a GitHub Release is published, with version,
+  changelog, package, and test checks before publication.
+
+### Changed
+
+- Removed the unused `fs` dependency; runtime code uses Node.js built-in modules.
+
+### Fixed
+
+- Input validation and metadata errors now fail with actionable messages before
+  sprite generation.
+- Encoder availability is checked before conversion, and temporary files are
+  cleaned up after successful or failed processing.

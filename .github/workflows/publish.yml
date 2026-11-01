@@ -1,0 +1,62 @@
+name: Publish npm release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-publish-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Check out the release tag
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org/
+          package-manager-cache: false
+
+      - name: Use npm with trusted publishing support
+        run: npm install --global npm@11
+
+      - name: Install development dependencies
+        run: npm ci
+
+      - name: Validate release tag and package versions
+        id: release
+        run: npm run release:check
+
+      - name: Install media tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
+
+      - name: Run tests and verify coverage
+        run: npm run test:coverage
+
+      - name: Pack the tested package
+        run: npm pack --pack-destination "$RUNNER_TEMP"
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_DIST_TAG: ${{ steps.release.outputs.dist-tag }}
+        run: |
+          PACKAGE_FILE="$(node -p "require('./package.json').name + '-' + require('./package.json').version + '.tgz'")"
+          npm publish "$RUNNER_TEMP/$PACKAGE_FILE" --access public --tag "$NPM_DIST_TAG"

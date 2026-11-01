@@ -1,23 +1,57 @@
 {
   "name": "audio-sprite",
   "version": "1.0.6",
-  "description": "Audio Sprite",
+  "description": "Create audio sprites and JSON timing maps from audio and video files with FFmpeg.",
   "main": "scripts/audio-convert.js",
   "type": "commonjs",
   "scripts": {
     "start": "node scripts/audio-convert.js",
     "setup:ffmpeg": "node scripts/setup-ffmpeg.js",
     "test": "node --test",
-    "test:unit": "node --test tests/converter.test.js tests/setup.test.js",
+    "test:unit": "node --test tests/converter.test.js tests/setup.test.js tests/release.test.js tests/package.test.js",
     "test:integration": "node --test tests/integration.test.js",
-    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=\"scripts/*.js\"",
-    "format": "prettier --plugin-search-dir . --write ."
-  },
-  "dependencies": {
-    "fs": "^0.0.1-security"
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=\"scripts/*.js\" --test-coverage-include=\"bin/*.js\"",
+    "format": "prettier --plugin-search-dir . --write .",
+    "release:check": "node scripts/release-check.js"
   },
   "devDependencies": {
     "audit-ci": "^6.6.1",
     "prettier": "^3.0.3"
+  },
+  "bin": {
+    "audio-sprite": "bin/audio-sprite.js",
+    "audio-sprite-setup": "bin/audio-sprite-setup.js"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "bin/",
+    "scripts/audio-convert.js",
+    "scripts/setup-ffmpeg.js",
+    "scripts/setup-ffmpeg.sh",
+    "assets/silence.wav"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "license": "MIT",
+  "author": "D-Velopment",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d-velopment/audio-sprite.git"
+  },
+  "homepage": "https://github.com/d-velopment/audio-sprite#readme",
+  "bugs": {
+    "url": "https://github.com/d-velopment/audio-sprite/issues"
+  },
+  "keywords": [
+    "audio",
+    "audio-sprite",
+    "ffmpeg",
+    "cli",
+    "sprite"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

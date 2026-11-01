@@ -611,6 +611,7 @@ const __main = async (args = process.argv.slice(2)) => {
     console.log(
       [
         "Usage:",
+      "  audio-sprite <media-file> [more-files ...] [options]",
         "  npm start -- <media-file> [more-files ...] [options]",
         "  node scripts/audio-convert.js <folder> [options]",
         "",
