@@ -10,6 +10,13 @@ the previous release.
 - Release through GitHub Actions to validate npm Trusted Publishing. Runtime
   behavior is unchanged from version 1.0.6.
 
+### Fixed
+
+- Package installation tests now verify setup behavior for macOS, Windows, and
+  Linux independently of the host platform. Linux correctly rejects automatic
+  FFmpeg setup without running installer commands, allowing release checks to
+  complete on the Ubuntu runner.
+
 ## [1.0.6]
 
 First version documented in this changelog; no earlier release history is recorded.
