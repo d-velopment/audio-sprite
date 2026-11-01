@@ -17,7 +17,7 @@ const { workspace } = require("./helpers.js");
 
 // Produce matching package identities for testing release versions independently of the repository.
 function manifests(version = "1.0.6") {
-  const manifest = { name: "audio-sprite", version };
+  const manifest = { name: "@d-velopment/audio-sprite", version };
   return { manifest, lock: { ...manifest, packages: { "": { ...manifest } } } };
 }
 
@@ -100,7 +100,7 @@ function checksGithubEvent(t) {
   delete env.GITHUB_OUTPUT;
   const withoutOutput = childProcess.spawnSync(process.execPath, [require.resolve("../scripts/release-check.js")], { env, encoding: "utf8" });
   assert.equal(withoutOutput.status, 0, withoutOutput.stderr);
-  assert.match(withoutOutput.stdout, /Validated audio-sprite@/);
+  assert.match(withoutOutput.stdout, /Validated @d-velopment\/audio-sprite@/);
   delete env.GITHUB_EVENT_PATH;
   const missingEvent = childProcess.spawnSync(process.execPath, [require.resolve("../scripts/release-check.js")], { env, encoding: "utf8" });
   assert.equal(missingEvent.status, 1);

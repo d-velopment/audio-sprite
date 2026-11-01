@@ -1,10 +1,7 @@
 # Changelog
 
-Changes are recorded by version, newest first. Keep upcoming changes in
-`Unreleased`, then move them into a versioned entry before creating a release.
-Each entry describes changes since the previous release.
-
-## [Unreleased]
+Changes are recorded by version, newest first. Each entry describes changes since
+the previous release.
 
 ## [1.0.6]
 
@@ -25,6 +22,7 @@ First version documented in this changelog; no earlier release history is record
 
 ### Changed
 
+- The npm package uses the scoped name `@d-velopment/audio-sprite`.
 - Removed the unused `fs` dependency; runtime code uses Node.js built-in modules.
 
 ### Fixed

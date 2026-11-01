@@ -51,12 +51,12 @@ jobs:
         run: npm run test:coverage
 
       - name: Pack the tested package
-        run: npm pack --pack-destination "$RUNNER_TEMP"
+        run: npm pack --json --pack-destination "$RUNNER_TEMP" > "$RUNNER_TEMP/npm-pack.json"
 
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_DIST_TAG: ${{ steps.release.outputs.dist-tag }}
         run: |
-          PACKAGE_FILE="$(node -p "require('./package.json').name + '-' + require('./package.json').version + '.tgz'")"
+          PACKAGE_FILE="$(node -p "require(process.env.RUNNER_TEMP + '/npm-pack.json')[0].filename")"
           npm publish "$RUNNER_TEMP/$PACKAGE_FILE" --access public --tag "$NPM_DIST_TAG"

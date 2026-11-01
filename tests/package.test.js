@@ -42,6 +42,8 @@ function installsPackedPackage(t) {
   const cache = path.join(directory, "npm-cache");
   const packed = npm(["pack", "--ignore-scripts", "--offline", "--json", "--pack-destination", directory], root, cache);
   const artifact = JSON.parse(packed.stdout)[0];
+  assert.equal(artifact.name, "@d-velopment/audio-sprite");
+  assert.equal(artifact.filename, `d-velopment-audio-sprite-${require("../package.json").version}.tgz`);
   const actual = [];
 
   for (const file of artifact.files) {
@@ -56,7 +58,7 @@ function installsPackedPackage(t) {
   fs.mkdirSync(consumer);
   fs.writeFileSync(path.join(consumer, "package.json"), JSON.stringify({ name: "package-consumer-test", private: true }));
   npm(["install", path.join(directory, artifact.filename), "--offline", "--ignore-scripts", "--no-audit", "--no-fund"], consumer, cache);
-  const installed = path.join(consumer, "node_modules", "audio-sprite");
+  const installed = path.join(consumer, "node_modules", "@d-velopment", "audio-sprite");
   const manifest = JSON.parse(fs.readFileSync(path.join(installed, "package.json"), "utf8"));
   assert.equal(Object.keys(manifest.dependencies || {}).length, 0);
   assert.equal(fs.existsSync(path.join(installed, "node_modules")), false);

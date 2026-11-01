@@ -1,6 +1,6 @@
 # Audio-Sprite
 
-[![npm version](https://img.shields.io/npm/v/audio-sprite?style=flat-square&color=2563eb)](https://www.npmjs.com/package/audio-sprite)
+[![npm version](https://img.shields.io/npm/v/@d-velopment/audio-sprite?style=flat-square&color=2563eb)](https://www.npmjs.com/package/@d-velopment/audio-sprite)
 [![Node.js](https://img.shields.io/badge/Node.js-CLI-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 [![FFmpeg](https://img.shields.io/badge/FFmpeg-powered-007808?style=flat-square&logo=ffmpeg&logoColor=white)](https://ffmpeg.org/)
 [![JSON sprite map](https://img.shields.io/badge/JSON-sprite%20map-0f766e?style=flat-square&logo=json&logoColor=white)](#usage)
@@ -25,7 +25,7 @@ in applications and games.
 Install Node.js 24 or later, then install the published CLI:
 
 ```sh
-npm install --global audio-sprite
+npm install --global @d-velopment/audio-sprite
 ```
 
 For development from a repository checkout, install dependencies with `npm ci`.
