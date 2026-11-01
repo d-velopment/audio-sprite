@@ -9,7 +9,7 @@
  * outside this module's responsibilities. Linux requires manual provisioning.
  */
 
-const { spawnSync } = require('node:child_process');
+const childProcess = require('node:child_process');
 const path = require('node:path');
 
 const WINGET_UPDATE_NOT_APPLICABLE = 0x8a15002b;
@@ -18,7 +18,7 @@ const WINGET_UPDATE_NOT_APPLICABLE = 0x8a15002b;
 
 // Run an executable without a shell, preserving prompts unless output is captured.
 function runCommand(command, args, options = {}, acceptedStatuses = [0]) {
-  const result = spawnSync(command, args, { stdio: 'inherit', ...options });
+  const result = childProcess.spawnSync(command, args, { stdio: 'inherit', ...options });
 
   if (result.error) {
     throw new Error(`Cannot run ${command}: ${result.error.message}`);

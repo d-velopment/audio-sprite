@@ -25,10 +25,11 @@
  * uses the project root.
  *
  * Tool installation belongs to setup scripts;
- * importing or running this CommonJS entry point starts the workflow immediately.
+ * direct CLI execution starts the workflow, while importing exposes helpers
+ * without running conversion or modifying files.
  */
 
-const { execFile, spawn } = require('node:child_process');
+const childProcess = require('node:child_process');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
@@ -260,7 +261,7 @@ const __checkOutputEncoders = async (outputFormats) => {
 
     // Inspect the encoder list from the same executable used for conversion.
     (resolve, reject) => {
-      execFile('ffmpeg', ['-hide_banner', '-encoders'],
+      childProcess.execFile('ffmpeg', ['-hide_banner', '-encoders'],
 
         // Collect every missing selected encoder and provide the same platform-specific remedy.
         (error, stdout, stderr) => {
@@ -318,7 +319,7 @@ const __probeAudio = (filePath) => {
 
     // Distinguish unsupported media from missing tools and malformed probe responses.
     (resolve, reject) => {
-      execFile('ffprobe', [
+      childProcess.execFile('ffprobe', [
         '-v', 'error', '-select_streams', 'a:0', '-show_entries',
         'stream=index,codec_type,codec_name,sample_rate,channels,bits_per_sample,duration,duration_ts,time_base:format=format_name,duration',
         '-of', 'json', filePath
@@ -368,7 +369,7 @@ const __runFfmpeg = (args) => {
 
     // Wait for process closure so temporary files are no longer in use on Windows.
     (resolve, reject) => {
-      const encoder = spawn('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-nostdin', '-y', ...args], {
+      const encoder = childProcess.spawn('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-nostdin', '-y', ...args], {
         stdio: ['ignore', 'ignore', 'inherit']
       });
 
@@ -518,8 +519,8 @@ const __buildSpriteMap = (inputs, silenceDuration, settings) => {
 // ----------------------------------------------------------------- CLI workflow and temporary workspace lifecycle
 
 // Normalize, merge, stage all encodings, and publish outputs while always cleaning intermediates.
-const __main = async () => {
-  const settings = __parseArguments(process.argv.slice(2));
+const __main = async (args = process.argv.slice(2)) => {
+  const settings = __parseArguments(args);
 
   if (settings.help) {
     console.log([
@@ -579,12 +580,30 @@ const __main = async () => {
   }
 }
 
-__main().catch(
+if (require.main === module) {
+  __main().catch(
 
-  // Report failures after workspace cleanup and return a nonzero CLI exit status.
-  (error) => {
-    console.error(`ERROR: ${error.message}`);
-    process.exitCode = 1;
-  },
+    // Report failures after workspace cleanup and return a nonzero CLI exit status.
+    (error) => {
+      console.error(`ERROR: ${error.message}`);
+      process.exitCode = 1;
+    },
 
-);
+  );
+}
+
+module.exports = {
+  parseOutputFormats: __parseOutputFormats,
+  validateOutputName: __validateOutputName,
+  parseArguments: __parseArguments,
+  collectInputFiles: __collectInputFiles,
+  checkOutputEncoders: __checkOutputEncoders,
+  probeAudio: __probeAudio,
+  runFfmpeg: __runFfmpeg,
+  normalizeAudio: __normalizeAudio,
+  prepareInputs: __prepareInputs,
+  formatConcatEntry: __formatConcatEntry,
+  mergeWavFiles: __mergeWavFiles,
+  buildSpriteMap: __buildSpriteMap,
+  main: __main
+};

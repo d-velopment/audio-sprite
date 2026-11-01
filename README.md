@@ -120,6 +120,21 @@ The example creates `ui-sounds.mp3`, `ui-sounds.ogg`, and `ui-sounds.json` in
 directory, not the JSON file's location. Matching output files are replaced;
 unselected formats are left untouched.
 
+## Testing
+
+```sh
+npm test
+npm run test:unit
+npm run test:integration
+npm run test:coverage
+```
+
+Tests use Node.js's built-in test runner. The full suite and coverage report
+require FFmpeg and ffprobe on `PATH`, with encoders for all supported output
+formats. Unit tests run without media tools; installer tests use controlled
+commands and never change system packages. Integration tests generate synthetic
+media in temporary directories and verify the complete conversion pipeline.
+
 ## License
 
 Audio-Sprite is released under the [MIT License](./LICENSE).
