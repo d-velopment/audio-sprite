@@ -1,6 +1,6 @@
 {
   "name": "@d-velopment/audio-sprite",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Create audio sprites and JSON timing maps from audio and video files with FFmpeg.",
   "main": "scripts/audio-convert.js",
   "type": "commonjs",

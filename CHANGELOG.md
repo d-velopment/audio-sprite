@@ -3,6 +3,13 @@
 Changes are recorded by version, newest first. Each entry describes changes since
 the previous release.
 
+## [1.0.7]
+
+### Maintenance
+
+- Release through GitHub Actions to validate npm Trusted Publishing. Runtime
+  behavior is unchanged from version 1.0.6.
+
 ## [1.0.6]
 
 First version documented in this changelog; no earlier release history is recorded.
