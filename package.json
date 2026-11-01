@@ -1,23 +1,23 @@
 {
-	"name": "audio-sprite",
-	"version": "1.0.6",
-	"description": "Audio Sprite",
-	"main": "scripts/audio-convert.js",
-	"type": "commonjs",
-	"scripts": {
-		"start": "node scripts/audio-convert.js",
-		"setup:ffmpeg": "node scripts/setup-ffmpeg.js",
-		"test": "node --test",
-		"test:unit": "node --test tests/converter.test.js tests/setup.test.js",
-		"test:integration": "node --test tests/integration.test.js",
-		"test:coverage": "node --test --experimental-test-coverage --test-coverage-include=\"scripts/*.js\"",
-		"format": "prettier --plugin-search-dir . --write ."
-	},
-	"dependencies": {
-		"fs": "^0.0.1-security"
-	},
-	"devDependencies": {
-		"audit-ci": "^6.6.1",
-		"prettier": "^3.0.3"
-	}
+  "name": "audio-sprite",
+  "version": "1.0.6",
+  "description": "Audio Sprite",
+  "main": "scripts/audio-convert.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node scripts/audio-convert.js",
+    "setup:ffmpeg": "node scripts/setup-ffmpeg.js",
+    "test": "node --test",
+    "test:unit": "node --test tests/converter.test.js tests/setup.test.js",
+    "test:integration": "node --test tests/integration.test.js",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=\"scripts/*.js\"",
+    "format": "prettier --plugin-search-dir . --write ."
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "audit-ci": "^6.6.1",
+    "prettier": "^3.0.3"
+  }
 }

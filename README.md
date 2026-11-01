@@ -104,11 +104,11 @@ node scripts/audio-convert.js "./input"
 npm start -- "./input" --output "mp3:192k:stereo,ogg:96k:mono" --output-dir "./dist/audio" --output-name "ui-sounds"
 ```
 
-| Option | Default | Behavior |
-| --- | --- | --- |
-| `--output` | `mp3,m4a,ogg,ac3` | Select comma-separated `format:bitrate:channels` entries. |
-| `--output-dir` | `./` | Create the results directory, including missing parents. |
-| `--output-name` | `merged` | Set the shared audio and JSON basename, without an extension. |
+| Option          | Default           | Behavior                                                      |
+| --------------- | ----------------- | ------------------------------------------------------------- |
+| `--output`      | `mp3,m4a,ogg,ac3` | Select comma-separated `format:bitrate:channels` entries.     |
+| `--output-dir`  | `./`              | Create the results directory, including missing parents.      |
+| `--output-name` | `merged`          | Set the shared audio and JSON basename, without an extension. |
 
 `--output` replaces the format list; omitted bitrate and channels default to
 `128k` and `stereo`. Use `mono` for one channel, for example `mp3::mono`.
